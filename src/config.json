@@ -1,0 +1,5 @@
+{
+  "backupFilePath": "/home/ali/backups/AlMuhandis_675dc8b99362dfcaf4bb02ba/675dc8b99362dfcaf4bb02ba_2024-12-14.json",
+  "dbUri": "mongodb://localhost:27017",
+  "dbName": "almuhandis-accounting-app"
+}
