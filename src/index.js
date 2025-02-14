@@ -72,6 +72,36 @@ function convertTypes(data) {
         } else if (key === '_id' && typeof value === 'string') {
           // Convert _id string to ObjectId
           convertedData[key] = new ObjectId(value);
+        } else if (key === 'payments') {
+          // Special handling for the "payments" array in purchases
+          convertedData[key] = value.map((payment) => {
+            // Convert each payment object
+            if (payment._id && typeof payment._id === 'string') {
+              payment._id = new ObjectId(payment._id); // Convert _id to ObjectId
+            }
+            if (payment.date && typeof payment.date === 'string') {
+              payment.date = new Date(payment.date); // Convert date to Date object
+            }
+            return payment;
+          });
+        } else if (key === 'purchasedProducts') {
+          convertedData[key] = value.map((purchasedProduct) => {
+            if (
+              purchasedProduct._id &&
+              typeof purchasedProduct._id === 'string'
+            ) {
+              purchasedProduct._id = new ObjectId(purchasedProduct._id); // Convert _id to ObjectId
+            }
+            if (
+              purchasedProduct.productId &&
+              typeof purchasedProduct.productId === 'string'
+            ) {
+              purchasedProduct.productId = new ObjectId(
+                purchasedProduct.productId
+              ); // Convert _id to ObjectId
+            }
+            return purchasedProduct;
+          });
         } else if (Array.isArray(value)) {
           // Check if the array contains ObjectId-like strings and convert them
           convertedData[key] = value.map((item) =>
