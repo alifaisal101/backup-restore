@@ -66,8 +66,16 @@ function convertTypes(data) {
       if (data.hasOwnProperty(key)) {
         let value = data[key];
 
+        if (key === 'name') {
+          convertedData[key] = value; // Keep name as it is
+          continue;
+        }
         // Convert string dates to Date objects
-        if (typeof value === 'string' && !isNaN(Date.parse(value))) {
+        if (
+          typeof value === 'string' &&
+          !isNaN(Date.parse(value)) &&
+          key !== 'name'
+        ) {
           convertedData[key] = new Date(value); // Convert ISO date string to Date
         } else if (key === '_id' && typeof value === 'string') {
           // Convert _id string to ObjectId
